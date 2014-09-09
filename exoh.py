@@ -5,8 +5,8 @@ def ExOh(str):
     count_x = request.count("x")
     count_o = request.count("o")
     if count_x == count_o:
-	print True
+	return True
     else:
-	print False
+	return False
 
-ExOh(request)
+print ExOh(request)
