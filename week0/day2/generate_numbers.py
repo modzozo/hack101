@@ -2,19 +2,21 @@
 from sys import argv
 from random import randint
 
-
-def write_to_file(filename,num):
-        file = open(filename, "w")
-        contents = randint(1,num)
-        file.close()
-        return contents    
-
 def main():
-    if len(argv) <= 1:
-        print("Provide valid filenames")
-        filename = ""
-    elif isinstance(argv[0],str) and isinstance(argv[1],int):
-        print("As first argument provide a filename and as second an integer")
+    if len(argv) < 3:
+        print("Provide valid filename and number")
+        
+    filename=argv[1]
+    number = 0 
+    number=int(argv[2])
+    file=open(filename,"w")
+    for i in range(number):
+        random_number=randint(0,1000)
+        file.write(str(random_number))
+        file.write(" ")
+    file.write("\n")
+    file.close()
+        
 
  #       filename = argv[0]
  #       print(write_to_file(filename))
