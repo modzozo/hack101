@@ -38,6 +38,7 @@ class Store:
         else:
             self.items[product] = count
 
+
     def __str__(self):
         return "Name: {} ".format(self.name)
 
@@ -51,17 +52,21 @@ class Store:
 
     def sell_product(self, product):
         #return false or true
-        self.product = product
-        if product in self.items:
-            return True
-            self.items.pop(product)
+#        self.product = product
+        if product in self.items and self.items[product] > 0:
             #return True
-        else:
-            #print(False)
-            return False
+            self.items[product] -= 1
+
+            return True
+
+        return False
 
     def total_income(self):
-        return "Only this for now"
+
+        for item in self.items:
+            self.profit += Product.profit()
+        return self.profit
+
 
 store = Store('Laptop.bg')
 smarthphone = Smartphone('Hack Phone', 500, 820, 7, 10)
