@@ -6,8 +6,8 @@ class Product:
         self.final_price = final_price
 
     def profit(self):
-        true_profit = int(self.final_price) - int(self.stock_price)
-        return true_profit
+        real_profit = int(self.final_price) - int(self.stock_price)
+        return real_profit
 
 
 
@@ -26,8 +26,13 @@ class Smartphone(Product):
 
 class Store:
     def __init__(self,name):
+
         self.name = name
         self.items = {}
+        #TODO
+        self.profit = 0
+
+
 
 
     def load_new_products(self, product, count):
@@ -51,10 +56,8 @@ class Store:
                 print(item)
 
     def sell_product(self, product):
-        #return false or true
-#        self.product = product
+
         if product in self.items and self.items[product] > 0:
-            #return True
             self.items[product] -= 1
 
             return True
@@ -62,15 +65,15 @@ class Store:
         return False
 
     def total_income(self):
-
-        for item in self.items:
-            self.profit += Product.profit()
         return self.profit
+
 
 
 store = Store('Laptop.bg')
 smarthphone = Smartphone('Hack Phone', 500, 820, 7, 10)
+print(smarthphone.profit())
 store.load_new_products(smarthphone, 2)
 print(store.sell_product(smarthphone)) # True
 print(store.sell_product(smarthphone)) # True
 print(store.sell_product(smarthphone)) # False
+print(store.total_income())#640

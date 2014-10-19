@@ -35,5 +35,5 @@ class CashDesk:
 my_cash_desk = CashDesk()
 my_cash_desk.take_money({1:2, 50:1, 20:1})
 print(my_cash_desk.total()) # 72
-print(my_cash_desk.can_withdraw_money(30)) #False
-print(my_cash_desk.can_withdraw_money(70)) #True
+print(my_cash_desk.can_withdraw_money(30)) #True
+print(my_cash_desk.can_withdraw_money(73)) #False
