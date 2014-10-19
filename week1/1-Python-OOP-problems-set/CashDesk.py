@@ -15,14 +15,15 @@ class CashDesk:
         #self.money=_to_sum
         sum = 0
         for key in self.money:
-            sum+=self.money[key]
+            sum+= key * self.money[key]
+
         return sum
 
 
 
     def can_withdraw_money(self, amount_of_money):
 
-        if amount_of_money > self.total():
+        if amount_of_money >= self.total():
             return False
         else:
             return True
