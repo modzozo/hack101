@@ -6,8 +6,8 @@ class Product:
         self.final_price = final_price
 
     def profit(self):
-        real_profit = int(self.final_price) - int(self.stock_price)
-        return real_profit
+
+        return self.final_price -self.stock_price
 
 
 
@@ -29,9 +29,7 @@ class Store:
 
         self.name = name
         self.items = {}
-        #TODO
-        self.profit = 0
-
+        self.income = 0
 
 
 
@@ -59,14 +57,13 @@ class Store:
 
         if product in self.items and self.items[product] > 0:
             self.items[product] -= 1
-
+            self.income += product.profit()
             return True
 
         return False
 
     def total_income(self):
-        return self.profit
-
+        return self.income
 
 
 store = Store('Laptop.bg')
@@ -76,4 +73,5 @@ store.load_new_products(smarthphone, 2)
 print(store.sell_product(smarthphone)) # True
 print(store.sell_product(smarthphone)) # True
 print(store.sell_product(smarthphone)) # False
+#
 print(store.total_income())#640
