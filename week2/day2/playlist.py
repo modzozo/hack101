@@ -22,12 +22,9 @@ class Playlist(Song):
         return result
 
     def remove_bad_quality(self):
-        result = []
-        for item in range(0, len(self.songlist)):
-            if self.songlist[item].bitrate > Playlist.LOW_BITRATE:
-                result.append(self.songlist[item])
-            self.songlist = result
-        return self.songlist
+        for song in self.songlist:
+            if song.bitrate < Playlist.LOW_BITRATE:
+                self.songlist.remove(song)
 
     def show_artists(self):
         result = []
@@ -44,17 +41,18 @@ class Playlist(Song):
 
 
     def save(self,file_name):
+        ##taken from
+#http://stackoverflow.com/questions/7408647/convert-dynamic-python-object-to-json
+        json_output=json_dump(self,default=lambda o:o.__dict__,
+            sort_keys=True,indent=4)
+        file=open(file_name,"w")
+        list_of_songs_to_save = []
+        for song in self.songlist:
+            list_of_songs_to_save(song.__dict__)
 
-
-        d = {"name":"interpolator","children":[{'name':key,"size":value} for key,value in sample.items()]}
-        j = json.dumps(d, indent=4)
-        f = open('sample.json', 'w')
-        print >> f, j
-        f.close()
-        song_dict = {}
-        test_song.__dict__
 
         def load(self,file_name):
+            pass
 
 
 
