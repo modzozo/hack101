@@ -1,10 +1,17 @@
 import requests
 import random
+import json
 
 
 def get_students():
-    students = requests.get('https://hackbulgaria.com/api/students/', verify=False)
-    return students
+    try:
+        students = requests.get('https://hackbulgaria.com/api/students/', verify=False)
+        return students
+    except students.exceptions.RequestException as e:
+        print(e)
+        sys.exit(1)
+
+
 
 
 def get_courses():
