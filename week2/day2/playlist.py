@@ -1,4 +1,5 @@
 from song import Song
+import json
 
 class Playlist(Song):
     LOW_BITRATE = 128
@@ -41,19 +42,41 @@ class Playlist(Song):
 
 
     def save(self,file_name):
-        ##taken from
-#http://stackoverflow.com/questions/7408647/convert-dynamic-python-object-to-json
-        json_output=json_dump(self,default=lambda o:o.__dict__,
-            sort_keys=True,indent=4)
-        file=open(file_name,"w")
-        list_of_songs_to_save = []
-        for song in self.songlist:
-            list_of_songs_to_save(song.__dict__)
+        songs = []
+        with open(file_name,"w") as writeFile:
+            for each_song in self.songlist:
+                songs.append(each_song.__dict__)
+                jsondata = {
+                "name": self.name,
+                "songs": songs
+                }
+            result = json.dumps(jsondata,indent=4)
+
+            writeFile.write(result)
+        writeFile.close()
+
+    def load(self,file_name):
+        with open(file_name, "r") as readFile:
+            data = json.loads(readFile.read())
+            playlist = Playlist(data["name"])
+            for song in data["songs"]:
+                playlist.add_song(Song(**song))
+            return playlist
 
 
-        def load(self,file_name):
-            pass
-
+def main():
+    playlist = Playlist("New")
+    song = Song("Years and Years", "Years",
+        "Shelter", 5, 360, 320)
+    song1 = Song(
+        "New2", "New", "New", 2, 306, 120)
+    playlist.add_song(song)
+    playlist.add_song(song1)
+    playlist.save('myplaylist.json')
+#rs = Playlist.load('myplaylist.json')
+#print(rs)
+if __name__ == '__main__':
+    main()
 
 
 

@@ -17,3 +17,4 @@ class Song:
 
             raise ValueError
         self.rating = value
+
