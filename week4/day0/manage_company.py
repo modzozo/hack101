@@ -10,9 +10,9 @@ class ManageCompany():
 
     def list_employees(self):
 
-        exe = self.cursor.execute('''SELECT name, position FROM employees''')
+        exe = self.cursor.execute('''SELECT id,name, position FROM employees''')
         for row in exe:
-            print("{} - {}".format(row["name"], row["position"]))
+            print("{}. {} - {}".format(row["id"], row["name"], row["position"]))
 
 
     def monthly_spending(self):
@@ -36,30 +36,44 @@ class ManageCompany():
 
         self.connect.commit()
 
-    def update_employee(self):
-        pass
-    def delete_employee(self):
-        pass
+    def update_employee(self, id):
+        name = input("name> ")
+        monthly_salary = input("monthly_salary> ")
+        yearly_bonus = input("yearly_bonus> ")
+        position = input("position> ")
+        self.cursor.execute('''UPDATE employees SET name = ?,
+            monthly_salary = ?, yearly_bonus = ?, position = ?
+            WHERE id = ?;''', (name, monthly_salary, yearly_bonus, position, id))
+
+        self.connect.commit()
+
+    def delete_employee(self,id):
+        self.cursor.execute('''DELETE FROM employees WHERE id = ?''',(id))
+
+        self.connect.commit()
 
 
     def console(self):
         while True:
-            command = input("\nEnter command>")
-
-            if command == "list_employees":
-                self.list_employees()
-            elif command ==  "monthly_spending":
-                self.monthly_spending()
-            elif command == "add_employee":
-                self.add_employee()
-            elif command == "update_employee":
-                self.update_employee()
-            elif command == "delete_employee":
-                self.delete_employee()
-            elif command == "exit":
+            reply = input("\nYour choice: ")
+            if reply == 'exit':
                 break
             else:
-                print("Wrong command. Try again")
+                reply = reply.split()  # make list of arguments
+                if reply[0] == "list_employees":
+                    self.list_employees()
+                elif reply[0] == "monthly_spending":
+                    self.monthly_spending()
+                elif reply[0] == "yearly_spending":
+                    self.yearly_spending()
+                elif reply[0] == "add_employee":
+                    self.add_employee()
+                elif reply[0] == "update_employee" and len(reply) == 2:
+                    self.update_employee(reply[1])
+                elif reply[0] == "delete_employee" and len(reply) == 2:
+                    self.delete_employee(reply[1])
+                else:
+                    print("Wrong command! Try again.")
 
 
 def main():
